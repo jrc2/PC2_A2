@@ -14,4 +14,9 @@ WordCounter::~WordCounter()
     //dtor
 }
 
+void string& WordCounter::generateWordCountTable(string& input)
+{
+
+}
+
 }

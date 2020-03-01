@@ -10,6 +10,7 @@ class WordCounter
     public:
         WordCounter();
         virtual ~WordCounter();
+        void string& generateWordCountTable(string& input);
 
     protected:
 
