@@ -4,19 +4,20 @@
 #include "WordCounter.h"
 using namespace model;
 
-namespace controller {
+namespace controller
+{
 
 class Controller
 {
-    public:
-        Controller();
-        virtual ~Controller();
+public:
+    Controller();
+    virtual ~Controller();
 
-        void run();
+    void run();
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 }

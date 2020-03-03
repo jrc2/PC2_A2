@@ -4,18 +4,19 @@
 #include <string>
 using namespace std;
 
-namespace model {
+namespace model
+{
 
 class WordCounter
 {
-    public:
-        WordCounter();
-        virtual ~WordCounter();
-        void generateWordCountTable(const string& input);
+public:
+    WordCounter();
+    virtual ~WordCounter();
+    void generateWordCountTable(const string& input);
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 }

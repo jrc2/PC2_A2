@@ -6,7 +6,8 @@
 #include <string>
 using namespace std;
 
-namespace model {
+namespace model
+{
 
 WordCounter::WordCounter()
 {

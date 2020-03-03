@@ -6,7 +6,8 @@ using namespace model;
 #include <iostream>
 using namespace std;
 
-namespace controller {
+namespace controller
+{
 
 Controller::Controller()
 {
