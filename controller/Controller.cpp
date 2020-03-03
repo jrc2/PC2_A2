@@ -22,7 +22,7 @@ void Controller::run()
 {
     cout << "In run" << endl;
     WordCounter word_counter;
-    word_counter.generateWordCountTable("#HeLLO.      there!! This's a  test' test ' of-this - thing");
+    word_counter.generateWordCountTable("#HeLLO.      there!! This's a  test' test ' of-this - thing test");
 }
 
 }

@@ -6,15 +6,15 @@
 1583097019 /home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.h
 	"WordCounter.h"
 
-1583202668 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
+1583206640 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
 	<string>
 
-1583204707 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583206058 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
 	"WordCounter.h"
 	<iostream>
 
-1583204537 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
+1583206035 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
 	"WordCounter.h"
 	<iostream>
 	<regex>
