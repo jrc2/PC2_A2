@@ -12,7 +12,7 @@ class WordCounter
 public:
     WordCounter();
     virtual ~WordCounter();
-    void generateWordCountTable(const string& input);
+    void generateWordCountTable(const string &input);
 
 protected:
 

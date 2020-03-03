@@ -19,7 +19,7 @@ WordCounter::~WordCounter()
     //dtor
 }
 
-void WordCounter::generateWordCountTable(const string& input)
+void WordCounter::generateWordCountTable(const string &input)
 {
     regex non_letters ("[^A-Za-z'\\- ]");
 
@@ -35,7 +35,7 @@ void WordCounter::generateWordCountTable(const string& input)
         word_counts[word]++;
     }
 
-    for (const auto& word_count: word_counts)
+    for (const auto &word_count: word_counts)
     {
         cout << word_count.first << " " << word_count.second << " times" << endl; //cout for testing only
     }
