@@ -21,6 +21,8 @@ Controller::~Controller()
 void Controller::run()
 {
     cout << "In run" << endl;
+    WordCounter word_counter;
+    word_counter.generateWordCountTable("#HeLLO. there!!");
 }
 
 }

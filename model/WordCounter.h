@@ -1,6 +1,7 @@
 #ifndef WORDCOUNTER_H
 #define WORDCOUNTER_H
 
+#include <string>
 using namespace std;
 
 namespace model {
@@ -10,7 +11,7 @@ class WordCounter
     public:
         WordCounter();
         virtual ~WordCounter();
-        void string& generateWordCountTable(string& input);
+        void generateWordCountTable(const string& input);
 
     protected:
 
