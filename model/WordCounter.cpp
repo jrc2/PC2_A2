@@ -21,10 +21,16 @@ WordCounter::~WordCounter()
 void WordCounter::generateWordCountTable(const string& input)
 {
     regex non_letters ("[^A-Za-z'\\- ]");
-    stringstream cleaned_string;
-    regex_replace(ostream_iterator<char>(cleaned_string), input.begin(), input.end(), non_letters, "");
 
-    cout << cleaned_string.str() << endl; //this is for testing...don't use in production
+    stringstream cleaned_input;
+    regex_replace(ostream_iterator<char>(cleaned_input), input.begin(), input.end(), non_letters, "");
+
+    while (cleaned_input)
+    {
+        string word;
+        cleaned_input >> word;
+        cout << word << endl; //for testing -- don't leave cout in model...return whatever needs to be printed instead
+    }
 }
 
 }
