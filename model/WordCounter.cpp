@@ -22,7 +22,7 @@ WordCounter::~WordCounter()
 void WordCounter::generateWordCountTable(string input)
 {
     char before_curr, after_curr;
-    for (int i = 0; i < input.size(); i++) {
+    for (int i = 0; i < input.size(); ++i) {
         if (i != 0)
         {
             before_curr = input[i - 1];
