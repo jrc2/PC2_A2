@@ -21,8 +21,9 @@ Controller::~Controller()
 
 void Controller::run(int args_count, char *args[])
 {
-    cout << "In run" << endl;
     WordCounter word_counter;
+    string infile = "";
+    string outfile = "";
     map<string, int> words_and_count_to_add;
     map<string, int> words_and_count_to_remove;
     vector<string> words_to_completely_remove;
@@ -70,6 +71,16 @@ void Controller::run(int args_count, char *args[])
         {
             string column_width = args[++i];
             cout << "changing col width to " << column_width << endl;
+        }
+        else if (infile.compare(""))
+        {
+            infile = arg;
+            cout << "INFILE: " << arg << endl;
+        }
+        else if (outfile.compare(""))
+        {
+            outfile = arg;
+            cout << "OUTFILE: " << arg << endl;
         }
     }
 
