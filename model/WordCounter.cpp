@@ -19,7 +19,9 @@ WordCounter::~WordCounter()
     //dtor
 }
 
-void WordCounter::generateWordCountTable(string input)
+void WordCounter::generateWordCountTable(string input, map<string, int> &words_and_count_to_add,
+        map<string, int> &words_and_count_to_remove, vector<string> &words_to_completely_remove,
+        int num_columns, int column_width)
 {
     char before_curr, after_curr;
     for (int i = 0; i < input.size(); ++i) {
