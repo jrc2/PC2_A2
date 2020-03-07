@@ -55,16 +55,16 @@ void WordCounter::generateWordCountTable(string input, map<string, int> &words_a
         word_counts[word]++;
     }
 
-    map<int, vector<string>> words_grouped_by_occurances;
+    map<int, vector<string>> words_grouped_by_occurences;
 
     for (const auto &word_count_pair: word_counts)
     {
         string word = word_count_pair.first;
         int num_occurences = word_count_pair.second;
-        words_grouped_by_occurances[num_occurences].push_back(word);
+        words_grouped_by_occurences[num_occurences].push_back(word);
     }
 
-    for (const auto &word : words_grouped_by_occurances)
+    for (const auto &word : words_grouped_by_occurences)
     {
         int num_occurences = word.first;
         string time_indicator = "times";
