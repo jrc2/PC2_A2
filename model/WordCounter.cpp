@@ -65,7 +65,12 @@ void WordCounter::generateWordCountTable(string input)
     for (const auto &word : output)
     {
         int num_occurences = word.first;
-        cout << "Words appearing " << num_occurences << " time(s):" << endl;
+        string time_indicator = "times";
+        if (num_occurences == 1)
+        {
+            time_indicator = "time";
+        }
+        cout << "Words appearing " << num_occurences << " " << time_indicator << endl;
 
         vector<string> words = word.second;
         for (const auto &output : words)
