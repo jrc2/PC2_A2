@@ -9,12 +9,12 @@
 1583551902 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
 	<string>
 
-1583551516 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583551983 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
 	"WordCounter.h"
 	<iostream>
 
-1583551925 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
+1583593013 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
 	"WordCounter.h"
 	<iostream>
 	<regex>
