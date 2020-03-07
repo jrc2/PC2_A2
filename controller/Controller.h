@@ -13,7 +13,7 @@ public:
     Controller();
     virtual ~Controller();
 
-    void run();
+    void run(int args_count, char *args[]);
 
 protected:
 
