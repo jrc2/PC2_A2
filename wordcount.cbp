@@ -13,6 +13,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="model" />
+					<Add directory="controller" />
 				</Compiler>
 			</Target>
 		</Build>
@@ -21,7 +23,11 @@
 			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="controller/Controller.cpp" />
+		<Unit filename="controller/Controller.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="model/WordCounter.cpp" />
+		<Unit filename="model/WordCounter.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

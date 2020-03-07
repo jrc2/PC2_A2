@@ -1,20 +1,20 @@
 # depslib dependency file v1.0
-1583207753 source:/home/jchitta2/Documents/code/assignment2/wordcount/main.cpp
+1583261563 source:/home/jchitta2/Documents/code/assignment2/wordcount/main.cpp
 	<iostream>
 	"Controller.h"
 
 1583206828 /home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.h
 	"WordCounter.h"
 
-1583207420 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
+1583551902 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
 	<string>
 
-1583206815 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583551516 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
 	"WordCounter.h"
 	<iostream>
 
-1583207356 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
+1583551925 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
 	"WordCounter.h"
 	<iostream>
 	<regex>
