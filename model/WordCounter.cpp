@@ -92,15 +92,12 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         {
             time_indicator = "time";
         }
-        cout << endl << "Words appearing " << num_occurences << " " << time_indicator << endl;
+        cout << endl << "Words appearing " << num_occurences << " " << time_indicator << endl; //TODO don't cout in model
 
         vector<string> words = word.second;
-        for (const auto &word : words)
-        {
-            cout << word << endl;
-        }
+        cout << this->output_formatter(words, num_columns, column_width) << endl; //TODO don't cout in model
     }
-    return ""; //temporary
+    return ""; //TODO return actual output
 }
 
 string WordCounter::output_formatter(vector<string> &words_to_format, int num_columns, int column_width)
