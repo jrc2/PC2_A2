@@ -37,8 +37,8 @@ WordCounter::~WordCounter()
 pair<string, string> WordCounter::generate_word_count_table(int args_count, char *args[])
 {
     pair<string, string> table_outfile_pair;
-    bool args_result = this->process_command_line_args(args_count, args);
-    if (!args_result)
+    bool args_result_help = this->process_command_line_args(args_count, args);
+    if (!args_result_help)
     {
         table_outfile_pair.first == "";
         table_outfile_pair.second == "";
@@ -177,7 +177,7 @@ stringstream WordCounter::clean_input(string &input)
 {
     char before_curr, after_curr;
 
-    for (int i = 0; i < input.size(); ++i)
+    for (unsigned i = 0; i < input.size(); ++i)
     {
         if (i > 0)
         {
