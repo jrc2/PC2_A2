@@ -34,16 +34,16 @@ WordCounter::~WordCounter()
 
     @return an empty string if help message should be shown, otherwise a string showing the occurences of words,
         either by count or starting letter
+
+    @throws invalid_argument if argument passed in is not valid
 */
-pair<string, string> WordCounter::generate_word_count_table(int args_count, char *args[])
+string WordCounter::generate_word_count_table(int args_count, char *args[])
 {
-    pair<string, string> table_outfile_pair;
+    string output;
     bool args_result_help = this->process_command_line_args(args_count, args);
     if (!args_result_help)
     {
-        table_outfile_pair.first == "";
-        table_outfile_pair.second == "";
-        return table_outfile_pair;
+        return "";
     }
 
     this->get_input();
@@ -51,18 +51,17 @@ pair<string, string> WordCounter::generate_word_count_table(int args_count, char
     stringstream cleaned_input = this->clean_input(input);
     map<string, int> word_counts = this->generate_word_count_map(cleaned_input);
 
-    table_outfile_pair.second = this->outfile;
 
     if (sort_alphabetically)
     {
-        table_outfile_pair.first = this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
+        output = this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
     }
     else
     {
-        table_outfile_pair.first = this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
+        output = this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
     }
 
-    return table_outfile_pair;
+    return output;
 }
 
 bool WordCounter::process_command_line_args(int args_count, char *args[])

@@ -18,7 +18,7 @@ class WordCounter
 public:
     WordCounter();
     virtual ~WordCounter();
-    pair<string, string> generate_word_count_table(int args_count, char *args[]);
+    string generate_word_count_table(int args_count, char *args[]);
 
 protected:
 

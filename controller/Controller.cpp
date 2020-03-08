@@ -30,9 +30,7 @@ void Controller::run(int args_count, char *args[])
 
     try
     {
-        pair<string, string> table_outfile_pair = this->word_counter.generate_word_count_table(args_count, args);
-        string word_count_table = table_outfile_pair.first;
-        string outfile = table_outfile_pair.second;
+        string word_count_table = this->word_counter.generate_word_count_table(args_count, args);
 
         word_count_table.compare("") == 0 ? this->output.show_help_message() : this->output.show_message(word_count_table);
     }
