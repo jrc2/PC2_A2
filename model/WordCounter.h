@@ -14,13 +14,14 @@ class WordCounter
 public:
     WordCounter();
     virtual ~WordCounter();
-    void generateWordCountTable(string input, map<string, int> &words_and_count_to_add,
+    string generate_word_count_table(string input, map<string, int> &words_and_count_to_add,
             map<string, int> &words_and_count_to_remove, vector<string> &words_to_completely_remove,
             int num_columns, int column_width, bool sort_alphabetically);
 
 protected:
 
 private:
+    string output_formatter(vector<string> &words_to_format, int num_columns, int column_width);
 };
 
 }
