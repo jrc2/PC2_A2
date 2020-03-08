@@ -31,39 +31,50 @@ WordCounter::~WordCounter()
 
     @param TODO
 
-    @return an empty string if input is invalid, otherwise a string showing the occurences of words, either by
-        count or starting letter
+    @return an empty string if help message should be shown, otherwise a string showing the occurences of words,
+        either by count or starting letter
 */
-string WordCounter::generate_word_count_table(int args_count, char *args[])
+pair<string, string> WordCounter::generate_word_count_table(int args_count, char *args[])
 {
+    pair<string, string> table_outfile_pair;
     bool args_result = this->process_command_line_args(args_count, args);
-
     if (!args_result)
     {
-        return "";
+        table_outfile_pair.first == "";
+        table_outfile_pair.second == "";
+        return table_outfile_pair;
     }
 
-    this->input = this->file_io.get_string_from_file(infile);
+    this->get_input();
 
     stringstream cleaned_input = this->clean_input(input);
     map<string, int> word_counts = this->generate_word_count_map(cleaned_input);
 
+    table_outfile_pair.second = this->outfile;
+
     if (sort_alphabetically)
     {
-        return this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
+        table_outfile_pair.first = this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
     }
     else
     {
-        return this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
+        table_outfile_pair.first = this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
     }
+
+    return table_outfile_pair;
 }
 
 bool WordCounter::process_command_line_args(int args_count, char *args[])
 {
+    int one_additional_arg = 2;
     for (int i = 0; i < args_count; ++i)
     {
         string arg = args[i];
-        if (i == 0 || arg.compare(help) == 0)
+        if (i == 0)
+        {
+            continue;
+        }
+        else if (arg.compare(help) == 0)
         {
             return false;
         }
@@ -79,9 +90,9 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         }
         else if (arg.compare("-c") == 0)
         {
-            if (args_count < i + 2)
+            if (args_count < i + one_additional_arg)
             {
-                cout << "ERROR" << endl;
+                throw invalid_argument("No number given after -c");
             }
             string num_columns = args[++i];
             if (num_columns.compare(help) == 0)
@@ -92,6 +103,10 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         }
         else if (arg.compare("-d") == 0)
         {
+            if (args_count < i + one_additional_arg + 1)
+            {
+                throw invalid_argument("A word and number of times are required after -d");
+            }
             string word = args[++i];
             string num_times = args[++i];
             if (word.compare(help) == 0 || num_times.compare(help) == 0)
@@ -106,6 +121,10 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         }
         else if (arg.compare("-r") == 0)
         {
+            if (args_count < i + one_additional_arg)
+            {
+                throw invalid_argument("No word given after -r");
+            }
             string word_to_remove = args[++i];
             if (word_to_remove.compare(help) == 0)
             {
@@ -119,6 +138,10 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         }
         else if (arg.compare("-w") == 0)
         {
+            if (args_count < i + one_additional_arg)
+            {
+                throw invalid_argument("No number given after -w");
+            }
             string column_width = args[++i];
             if (column_width.compare(help) == 0)
             {
@@ -138,6 +161,16 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
     }
 
     return true;
+}
+
+void WordCounter::get_input()
+{
+    this->input = this->file_io.get_string_from_file(infile);
+
+    if (this->input.compare("") == 0)
+    {
+        throw invalid_argument("Invalid input file");
+    }
 }
 
 stringstream WordCounter::clean_input(string &input)

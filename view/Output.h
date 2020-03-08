@@ -1,5 +1,5 @@
-#ifndef CONSOLEOUTPUT_H
-#define CONSOLEOUTPUT_H
+#ifndef OUTPUT_H
+#define OUTPUT_H
 
 #include <fstream>
 
@@ -8,11 +8,11 @@ using namespace std;
 namespace view
 {
 
-class ConsoleOutput
+class Output
 {
     public:
-        ConsoleOutput();
-        virtual ~ConsoleOutput();
+        Output();
+        virtual ~Output();
 
         void show_help_message();
         void show_invalid_input_message();

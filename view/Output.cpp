@@ -1,4 +1,4 @@
-#include "ConsoleOutput.h"
+#include "Output.h"
 
 #include <fstream>
 #include <iterator>
@@ -10,17 +10,17 @@ using namespace std;
 namespace view
 {
 
-ConsoleOutput::ConsoleOutput()
+Output::Output()
 {
     //ctor
 }
 
-ConsoleOutput::~ConsoleOutput()
+Output::~Output()
 {
     //dtor
 }
 
-void ConsoleOutput::show_help_message()
+void Output::show_help_message()
 {
     string help_message = "usage: wordcount infile [outfile] [options]\n"
         "by John Chittam\n"
@@ -45,12 +45,6 @@ void ConsoleOutput::show_help_message()
         "                       The default column width is 15.\n";
 
     cout << help_message << endl;
-}
-
-void ConsoleOutput::show_invalid_input_message()
-{
-    cout << "Invalid input" << endl;
-    this->show_help_message();
 }
 
 }

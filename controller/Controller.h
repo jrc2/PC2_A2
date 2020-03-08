@@ -3,7 +3,7 @@
 
 #include "WordCounter.h"
 #include "FileIO.h"
-#include "ConsoleOutput.h"
+#include "Output.h"
 
 using namespace view;
 using namespace utilities;
@@ -24,7 +24,7 @@ protected:
 
 private:
     WordCounter word_counter;
-    ConsoleOutput console_output;
+    Output output;
 };
 
 }

@@ -18,7 +18,7 @@ class WordCounter
 public:
     WordCounter();
     virtual ~WordCounter();
-    string generate_word_count_table(int args_count, char *args[]);
+    pair<string, string> generate_word_count_table(int args_count, char *args[]);
 
 protected:
 
@@ -36,6 +36,7 @@ private:
     string input;
 
     bool process_command_line_args(int args_count, char *args[]);
+    void get_input();
     stringstream clean_input(string &input);
     map<string, int> generate_word_count_map(stringstream &cleaned_input);
     string generate_table_grouped_alphabetically(map<string, int> &word_counts, int num_columns, int column_width);
