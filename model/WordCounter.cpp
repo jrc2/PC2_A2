@@ -43,12 +43,12 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
 {
     char before_curr, after_curr;
     for (int i = 0; i < input.size(); ++i) {
-        if (i != 0)
+        if (i > 0)
         {
             before_curr = input[i - 1];
         }
 
-        if (i != input.size())
+        if (i < input.size())
         {
             after_curr = input[i + 1];
         }
@@ -68,8 +68,11 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
     {
         string word;
         cleaned_input >> word;
-        transform(word.begin(), word.end(), word.begin(), ::tolower);
-        word_counts[word]++;
+        if (word.compare("") != 0)
+        {
+            transform(word.begin(), word.end(), word.begin(), ::tolower);
+            word_counts[word]++;
+        }
     }
 
     map<int, vector<string>> words_grouped_by_occurences;
