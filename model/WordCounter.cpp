@@ -12,7 +12,11 @@ namespace model
 
 WordCounter::WordCounter()
 {
-    //ctor
+    this->infile = "";
+    this->outfile = "";
+    this->num_columns = 4;
+    this->column_width = 15;
+    this->sort_alphabetically = false;
 }
 
 WordCounter::~WordCounter()
@@ -25,23 +29,22 @@ WordCounter::~WordCounter()
     letters, `-`s or `'`s will be converted to spaces. `-`s and `'`s will be converted to spaces if not
     surrounded by letters.
 
-    @param input - the string to count words in
-    @param words_and_count_to_add - the words to add to the table (the int key associated with the string value
-        tells how many of each word to add to the count)
-    @param words_and_count_to_remove - the words to remove from the table (the int key associated with the string
-        value tells how many of each word to remove from the count)
-    @param words_to_completely_remove - the words to completely remove from the count
-    @param num_columns - the max number of columns of words per row of the returned string
-    @param column_width - the number of characters wide each column in the returned string should be
-    @param sort_alphabetically - if false, the returned string will show words grouped by the number of occurences;
-        if true, it will show words grouped by starting letter and will not show the number of occurences.
+    @param TODO
 
-    @return a string showing the occurences of words, either by count or starting letter
+    @return an empty string if input is invalid, otherwise a string showing the occurences of words, either by
+        count or starting letter
 */
-string WordCounter::generate_word_count_table(string input, map<string, int> &words_and_count_to_add,
-        map<string, int> &words_and_count_to_remove, vector<string> &words_to_completely_remove,
-        int num_columns, int column_width, bool sort_alphabetically)
+string WordCounter::generate_word_count_table(int args_count, char *args[])
 {
+    bool args_result = this->process_command_line_args(args_count, args);
+
+    if (!args_result)
+    {
+        return "";
+    }
+
+    this->input = this->file_io.get_string_from_file(infile);
+
     stringstream cleaned_input = this->clean_input(input);
     map<string, int> word_counts = this->generate_word_count_map(cleaned_input);
 
@@ -53,6 +56,88 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
     {
         return this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
     }
+}
+
+bool WordCounter::process_command_line_args(int args_count, char *args[])
+{
+    for (int i = 0; i < args_count; ++i)
+    {
+        string arg = args[i];
+        if (i == 0 || arg.compare(help) == 0)
+        {
+            return false;
+        }
+        else if (arg.compare("-a") == 0)
+        {
+            string word = args[++i];
+            string num_times = args[++i];
+            if (word.compare(help) == 0 || num_times.compare(help) == 0)
+            {
+                return false;
+            }
+            cout << "adding " << word << " " << num_times << " times" << endl;
+        }
+        else if (arg.compare("-c") == 0)
+        {
+            if (args_count < i + 2)
+            {
+                cout << "ERROR" << endl;
+            }
+            string num_columns = args[++i];
+            if (num_columns.compare(help) == 0)
+            {
+                return false;
+            }
+            cout << "changing num cols to " << num_columns << endl;
+        }
+        else if (arg.compare("-d") == 0)
+        {
+            string word = args[++i];
+            string num_times = args[++i];
+            if (word.compare(help) == 0 || num_times.compare(help) == 0)
+            {
+                return false;
+            }
+            cout << "deleting " << word << " " << num_times << " times" << endl;
+        }
+        else if (arg.compare("-oa") == 0)
+        {
+            sort_alphabetically = true;
+        }
+        else if (arg.compare("-r") == 0)
+        {
+            string word_to_remove = args[++i];
+            if (word_to_remove.compare(help) == 0)
+            {
+                return false;
+            }
+            cout << "removing completely " << word_to_remove << endl;
+        }
+        else if (arg.compare("-o") == 0)
+        {
+            cout << "overriding output file with no prompt" << endl;
+        }
+        else if (arg.compare("-w") == 0)
+        {
+            string column_width = args[++i];
+            if (column_width.compare(help) == 0)
+            {
+                return false;
+            }
+            cout << "changing col width to " << column_width << endl;
+        }
+        else if (infile.compare("") == 0)
+        {
+            this->infile = arg;
+        }
+        else if (outfile.compare("") == 0)
+        {
+            this->outfile = arg;
+            cout << "OUTFILE: " << arg << endl;
+        }
+    }
+
+    return true;
 }
 
 stringstream WordCounter::clean_input(string &input)

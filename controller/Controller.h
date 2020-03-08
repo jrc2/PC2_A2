@@ -23,18 +23,8 @@ public:
 protected:
 
 private:
-    ConsoleOutput console_output;
-    FileIO file_io;
     WordCounter word_counter;
-    const string help = "--help";
-    string infile;
-    string outfile;
-    map<string, int> words_and_count_to_add;
-    map<string, int> words_and_count_to_remove;
-    vector<string> words_to_completely_remove;
-    int num_columns;
-    int column_width;
-    bool sort_alphabetically;
+    ConsoleOutput console_output;
 };
 
 }

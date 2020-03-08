@@ -3,17 +3,18 @@
 	<iostream>
 	"Controller.h"
 
-1583691867 /home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.h
+1583693380 /home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.h
 	"WordCounter.h"
 	"FileIO.h"
 	"ConsoleOutput.h"
 
-1583692913 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
+1583693816 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
 	<string>
 	<map>
 	<vector>
+	"FileIO.h"
 
-1583692200 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583693804 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
 	"WordCounter.h"
 	<iostream>
