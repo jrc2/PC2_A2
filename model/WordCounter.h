@@ -22,6 +22,7 @@ protected:
 
 private:
     string output_formatter(vector<string> &words_to_format, int num_columns, int column_width);
+    string generate_table_grouped_by_occurences(vector<string> &words, int num_columns, int column_width);
 };
 
 }

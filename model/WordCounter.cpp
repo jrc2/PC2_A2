@@ -56,12 +56,12 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         {
             input[i] = ' ';
         }
-
     }
     regex non_letters ("[^A-Za-z'\\- ]");
 
     stringstream cleaned_input;
-    map<string, int> word_counts;
+    //map<string, int> word_counts;
+    vector<string> words;
     regex_replace(ostream_iterator<char>(cleaned_input), input.begin(), input.end(), non_letters, " ");
 
     while (cleaned_input)
@@ -71,8 +71,28 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         if (word.compare("") != 0)
         {
             transform(word.begin(), word.end(), word.begin(), ::tolower);
-            word_counts[word]++;
+            words.push_back(word);
+            //word_counts[word]++;
         }
+    }
+    if (sort_alphabetically)
+    {
+
+    }
+    else
+    {
+        this->generate_table_grouped_by_occurences(words, num_columns, column_width);
+    }
+
+    return ""; //TODO return actual output
+}
+
+string WordCounter::generate_table_grouped_by_occurences(vector<string> &words, int num_columns, int column_width)
+{
+    map<string, int> word_counts;
+    for (const auto &word : words)
+    {
+        word_counts[word]++;
     }
 
     map<int, vector<string>> words_grouped_by_occurences;
@@ -92,12 +112,12 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         {
             time_indicator = "time";
         }
+
         cout << endl << "Words appearing " << num_occurences << " " << time_indicator << endl; //TODO don't cout in model
 
         vector<string> words = word.second;
         cout << this->output_formatter(words, num_columns, column_width) << endl; //TODO don't cout in model
     }
-    return ""; //TODO return actual output
 }
 
 string WordCounter::output_formatter(vector<string> &words_to_format, int num_columns, int column_width)
