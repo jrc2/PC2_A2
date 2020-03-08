@@ -59,7 +59,7 @@ void Controller::run(int args_count, char *args[])
         }
         else if (arg.compare("-oa") == 0)
         {
-            cout << "display output in alphabetical order" << endl;
+            sort_alphabetically = true;
         }
         else if (arg.compare("-r") == 0)
         {

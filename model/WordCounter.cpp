@@ -62,7 +62,7 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
 
     regex non_letters ("[^A-Za-z'\\- ]");
     stringstream cleaned_input;
-    vector<string> words;
+    map<string, int> word_counts;
     regex_replace(ostream_iterator<char>(cleaned_input), input.begin(), input.end(), non_letters, " ");
 
     while (cleaned_input)
@@ -72,29 +72,47 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         if (word.compare("") != 0)
         {
             transform(word.begin(), word.end(), word.begin(), ::tolower);
-            words.push_back(word);
+            word_counts[word]++;
         }
     }
     if (sort_alphabetically)
     {
-
+        return this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
     }
     else
     {
-        return this->generate_table_grouped_by_occurences(words, num_columns, column_width);
+        return this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
     }
 }
 
-string WordCounter::generate_table_grouped_by_occurences(vector<string> &words, int num_columns, int column_width)
+string WordCounter::generate_table_grouped_alphabetically(map<string, int> &word_counts, int num_columns, int column_width)
 {
-    map<string, int> word_counts;
-    map<int, vector<string>> words_grouped_by_occurences;
+    map<char, vector<string>> words_grouped_alphabetically;
     stringstream output;
 
-    for (const auto &word : words)
+    for (const auto &word_count_pair: word_counts)
     {
-        word_counts[word]++;
+        string word = word_count_pair.first;
+        char first_letter = word[0];
+        words_grouped_alphabetically[first_letter].push_back(word);
     }
+
+    for  (const auto &words_starting_with_letter : words_grouped_alphabetically)
+    {
+        char first_letter = words_starting_with_letter.first;
+        vector<string> words = words_starting_with_letter.second;
+        output << endl << "Words starting with " << first_letter << ":" << endl;
+        output << this->output_formatter(words, num_columns, column_width) << endl;
+    }
+
+    return output.str();
+}
+
+string WordCounter::generate_table_grouped_by_occurences(map<string, int> &word_counts, int num_columns, int column_width)
+{
+
+    map<int, vector<string>> words_grouped_by_occurences;
+    stringstream output;
 
     for (const auto &word_count_pair: word_counts)
     {
@@ -112,7 +130,7 @@ string WordCounter::generate_table_grouped_by_occurences(vector<string> &words, 
             time_indicator = "time";
         }
 
-        output << endl << "Words appearing " << num_occurences << " " << time_indicator << endl;
+        output << endl << "Words occuring " << num_occurences << " " << time_indicator << endl;
 
         vector<string> words = word.second;
         output << this->output_formatter(words, num_columns, column_width) << endl;
