@@ -84,10 +84,12 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         {
             string word = args[++i];
             string num_times = args[++i];
+
             if (word.compare(help) == 0 || num_times.compare(help) == 0)
             {
                 return false;
             }
+
             this->words_and_count_to_add[word] += stoi(num_times);
         }
         else if (arg.compare("-c") == 0)
@@ -96,12 +98,15 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 throw invalid_argument("No number given after -c");
             }
+
             string num_columns = args[++i];
+
             if (num_columns.compare(help) == 0)
             {
                 return false;
             }
-            this->num_columns = stoi(num_columns);
+
+            this->num_columns = stoi(num_columns) > 0 ? stoi(num_columns) : 1;
         }
         else if (arg.compare("-d") == 0)
         {
@@ -109,12 +114,15 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 throw invalid_argument("A word and number of times are required after -d");
             }
+
             string word = args[++i];
             string num_times = args[++i];
+
             if (word.compare(help) == 0 || num_times.compare(help) == 0)
             {
                 return false;
             }
+
             words_and_count_to_remove[word] -= stoi(num_times);
         }
         else if (arg.compare("-oa") == 0)
@@ -127,11 +135,14 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 throw invalid_argument("No word given after -r");
             }
+
             string word_to_remove = args[++i];
+
             if (word_to_remove.compare(help) == 0)
             {
                 return false;
             }
+
             this->words_to_completely_remove.push_back(word_to_remove);
         }
         else if (arg.compare("-o") == 0)
@@ -144,11 +155,14 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 throw invalid_argument("No number given after -w");
             }
+
             string column_width = args[++i];
+
             if (column_width.compare(help) == 0)
             {
                 return false;
             }
+
             this->column_width = stoi(column_width);
         }
         else if (infile.compare("") == 0)
@@ -211,6 +225,7 @@ map<string, int> WordCounter::generate_word_count_map(stringstream &cleaned_inpu
     {
         string word;
         cleaned_input >> word;
+
         if (word.compare("") != 0)
         {
             transform(word.begin(), word.end(), word.begin(), ::tolower);
@@ -287,12 +302,15 @@ string WordCounter::output_formatter(vector<string> &words_to_format, int num_co
             formatted_output << endl;
             counter = 0;
         }
+
         formatted_output << word << " ";
         int num_spaces = column_width - word.length() - 1;
+
         for (int i = 0; i < num_spaces; i++)
         {
             formatted_output << " ";
         }
+
         counter++;
     }
 
