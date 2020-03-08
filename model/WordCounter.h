@@ -23,6 +23,8 @@ public:
 protected:
 
 private:
+    stringstream clean_input(string &input);
+    map<string, int> generate_word_count_map(stringstream &cleaned_input);
     string generate_table_grouped_alphabetically(map<string, int> &word_counts, int num_columns, int column_width);
     string generate_table_grouped_by_occurences(map<string, int> &word_counts, int num_columns, int column_width);
     string output_formatter(vector<string> &words_to_format, int num_columns, int column_width);

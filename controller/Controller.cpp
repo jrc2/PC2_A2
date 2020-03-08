@@ -3,15 +3,19 @@
 
 #include <iostream>
 
-using namespace model;
 using namespace std;
+using namespace model;
 
 namespace controller
 {
 
 Controller::Controller()
 {
-    //ctor
+    this->infile = "";
+    this->outfile = "";
+    this->num_columns = 4;
+    this->column_width = 15;
+    this->sort_alphabetically = false;
 }
 
 Controller::~Controller()
@@ -21,25 +25,14 @@ Controller::~Controller()
 
 void Controller::run(int args_count, char *args[])
 {
-    WordCounter word_counter;
-    const string help = "--help";
-    string infile = "";
-    string outfile = "";
-    map<string, int> words_and_count_to_add;
-    map<string, int> words_and_count_to_remove;
-    vector<string> words_to_completely_remove;
-    int num_columns = 4;
-    int column_width = 15;
-    bool sort_alphabetically = false;
-
     for (int i = 0; i < args_count; ++i)
     {
+        string arg = args[i];
         if (i == 0)
         {
             continue;
         }
-        string arg = args[i];
-        if (arg.compare(help) == 0)
+        else if (arg.compare(help) == 0)
         {
             this->console_output.show_help_message();
             return;
@@ -57,6 +50,10 @@ void Controller::run(int args_count, char *args[])
         }
         else if (arg.compare("-c") == 0)
         {
+            if (args_count < i + 2)
+            {
+                cout << "ERROR" << endl;
+            }
             string num_columns = args[++i];
             if (num_columns.compare(help) == 0)
             {
@@ -106,11 +103,11 @@ void Controller::run(int args_count, char *args[])
         }
         else if (infile.compare("") == 0)
         {
-            infile = arg;
+            this->infile = arg;
         }
         else if (outfile.compare("") == 0)
         {
-            outfile = arg;
+            this->outfile = arg;
             cout << "OUTFILE: " << arg << endl;
         }
     }

@@ -42,6 +42,21 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         map<string, int> &words_and_count_to_remove, vector<string> &words_to_completely_remove,
         int num_columns, int column_width, bool sort_alphabetically)
 {
+    stringstream cleaned_input = this->clean_input(input);
+    map<string, int> word_counts = this->generate_word_count_map(cleaned_input);
+
+    if (sort_alphabetically)
+    {
+        return this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
+    }
+    else
+    {
+        return this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
+    }
+}
+
+stringstream WordCounter::clean_input(string &input)
+{
     char before_curr, after_curr;
 
     for (int i = 0; i < input.size(); ++i)
@@ -55,6 +70,7 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         {
             after_curr = input[i + 1];
         }
+
         if ((before_curr == ' ' || after_curr == ' ') && (input[i] == '\'' || input[i] == '-'))
         {
             input[i] = ' ';
@@ -63,8 +79,14 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
 
     regex non_letters ("[^A-Za-z0-9'\\- ]");
     stringstream cleaned_input;
-    map<string, int> word_counts;
     regex_replace(ostream_iterator<char>(cleaned_input), input.begin(), input.end(), non_letters, " ");
+
+    return cleaned_input;
+}
+
+map<string, int> WordCounter::generate_word_count_map(stringstream &cleaned_input)
+{
+    map<string, int> word_counts;
 
     while (cleaned_input)
     {
@@ -76,14 +98,8 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
             word_counts[word]++;
         }
     }
-    if (sort_alphabetically)
-    {
-        return this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
-    }
-    else
-    {
-        return this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
-    }
+
+    return word_counts;
 }
 
 string WordCounter::generate_table_grouped_alphabetically(map<string, int> &word_counts, int num_columns, int column_width)

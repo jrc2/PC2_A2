@@ -47,4 +47,10 @@ void ConsoleOutput::show_help_message()
     cout << help_message << endl;
 }
 
+void ConsoleOutput::show_invalid_input_message()
+{
+    cout << "Invalid input" << endl;
+    this->show_help_message();
+}
+
 }

@@ -15,6 +15,7 @@ class ConsoleOutput
         virtual ~ConsoleOutput();
 
         void show_help_message();
+        void show_invalid_input_message();
 
     protected:
 
