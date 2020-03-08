@@ -42,6 +42,7 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         int num_columns, int column_width, bool sort_alphabetically)
 {
     char before_curr, after_curr;
+
     for (int i = 0; i < input.size(); ++i)
     {
         if (i > 0)
@@ -58,8 +59,8 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
             input[i] = ' ';
         }
     }
-    regex non_letters ("[^A-Za-z'\\- ]");
 
+    regex non_letters ("[^A-Za-z'\\- ]");
     stringstream cleaned_input;
     vector<string> words;
     regex_replace(ostream_iterator<char>(cleaned_input), input.begin(), input.end(), non_letters, " ");
@@ -80,7 +81,7 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
     }
     else
     {
-        this->generate_table_grouped_by_occurences(words, num_columns, column_width);
+        cout << this->generate_table_grouped_by_occurences(words, num_columns, column_width) << endl;
     }
 
     return ""; //TODO return actual output
@@ -89,12 +90,13 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
 string WordCounter::generate_table_grouped_by_occurences(vector<string> &words, int num_columns, int column_width)
 {
     map<string, int> word_counts;
+    map<int, vector<string>> words_grouped_by_occurences;
+    stringstream output;
+
     for (const auto &word : words)
     {
         word_counts[word]++;
     }
-
-    map<int, vector<string>> words_grouped_by_occurences;
 
     for (const auto &word_count_pair: word_counts)
     {
@@ -112,17 +114,20 @@ string WordCounter::generate_table_grouped_by_occurences(vector<string> &words, 
             time_indicator = "time";
         }
 
-        cout << endl << "Words appearing " << num_occurences << " " << time_indicator << endl; //TODO don't cout in model
+        output << endl << "Words appearing " << num_occurences << " " << time_indicator << endl;
 
         vector<string> words = word.second;
-        cout << this->output_formatter(words, num_columns, column_width) << endl; //TODO don't cout in model
+        output << this->output_formatter(words, num_columns, column_width) << endl;
     }
+
+    return output.str();
 }
 
 string WordCounter::output_formatter(vector<string> &words_to_format, int num_columns, int column_width)
 {
     stringstream formatted_output;
     int counter = 0;
+
     for (const auto &word : words_to_format)
     {
         if (counter == num_columns)
