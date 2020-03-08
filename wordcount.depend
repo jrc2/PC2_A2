@@ -11,7 +11,7 @@
 	<map>
 	<vector>
 
-1583636634 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583642166 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
 	"Utilities.h"
 	"WordCounter.h"
@@ -24,9 +24,12 @@
 	<sstream>
 	<string>
 
-1583635718 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/Utilities.cpp
+1583642994 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/Utilities.cpp
 	"Utilities.h"
+	<fstream>
+	<iterator>
+	<iostream>
 
-1583635421 /home/jchitta2/Documents/code/assignment2/wordcount/model/Utilities.h
+1583642184 /home/jchitta2/Documents/code/assignment2/wordcount/model/Utilities.h
 	<string>
 

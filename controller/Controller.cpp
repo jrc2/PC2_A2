@@ -35,6 +35,7 @@ void Controller::run(int args_count, char *args[])
     for (int i = 0; i < args_count; ++i)
     {
         Utilities utilities;
+        cout << utilities.get_string_from_file("../test.txt");
         string arg = args[i];
         if (arg.compare(help) == 0)
         {

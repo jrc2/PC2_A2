@@ -1,5 +1,8 @@
 #include "Utilities.h"
 
+#include <fstream>
+#include <iterator>
+#include <iostream>
 using namespace std;
 
 namespace model
@@ -42,4 +45,11 @@ string Utilities::get_help_message()
     return help_message;
 }
 
+string Utilities::get_string_from_file(const string &file_path)
+{
+    ifstream input_file (file_path);
+    string input { istreambuf_iterator<char>(input_file), istreambuf_iterator<char>() };
+    //TODO fix file in
+    input_file.close();
+}
 }

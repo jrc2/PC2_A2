@@ -13,6 +13,7 @@ class Utilities
         Utilities();
         virtual ~Utilities();
         string get_help_message();
+        string get_string_from_file(const string &file_path);
 
     protected:
 
