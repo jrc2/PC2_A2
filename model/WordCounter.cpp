@@ -60,7 +60,7 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         }
     }
 
-    regex non_letters ("[^A-Za-z'\\- ]");
+    regex non_letters ("[^A-Za-z0-9'\\- ]");
     stringstream cleaned_input;
     map<string, int> word_counts;
     regex_replace(ostream_iterator<char>(cleaned_input), input.begin(), input.end(), non_letters, " ");

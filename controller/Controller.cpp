@@ -113,7 +113,7 @@ void Controller::run(int args_count, char *args[])
         }
     }
 
-    cout << word_counter.generate_word_count_table("pass pass,pass pass#HeLLO.      there!! This's a  test' test ' of-this - thing test. -I \\n keep.testing things,so i'can pass keep.",
+    cout << word_counter.generate_word_count_table("pass pass,pass pass#HeLLO.      there!! This's a  four9two 9four four9 test' test ' of-this - thing test. -I \\n keep.testing things,so i'can pass keep.",
             words_and_count_to_add, words_and_count_to_remove, words_to_completely_remove, num_columns, column_width, sort_alphabetically) << endl;
             //TODO move cout out of controller
 }
