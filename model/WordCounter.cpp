@@ -81,10 +81,8 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
     }
     else
     {
-        cout << this->generate_table_grouped_by_occurences(words, num_columns, column_width) << endl;
+        return this->generate_table_grouped_by_occurences(words, num_columns, column_width);
     }
-
-    return ""; //TODO return actual output
 }
 
 string WordCounter::generate_table_grouped_by_occurences(vector<string> &words, int num_columns, int column_width)

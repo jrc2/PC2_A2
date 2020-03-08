@@ -1,5 +1,5 @@
 #include "Controller.h"
-
+#include "Utilities.h"
 #include "WordCounter.h"
 using namespace model;
 
@@ -11,12 +11,12 @@ namespace controller
 
 Controller::Controller()
 {
-    cout << "In Controller constructor" << endl;
+    //ctor
 }
 
 Controller::~Controller()
 {
-    cout << "In Controller destructor" << endl;
+    //dtor
 }
 
 void Controller::run(int args_count, char *args[])
@@ -33,10 +33,12 @@ void Controller::run(int args_count, char *args[])
 
     for (int i = 0; i < args_count; ++i)
     {
+        Utilities utilities;
         string arg = args[i];
         if (arg.compare("--help") == 0)
         {
-            cout << "asked for help" << endl;
+            cout << utilities.get_help_message() << endl; //TODO check if cout help message here is ok
+            return;
         }
         else if (arg.compare("-a") == 0)
         {
@@ -85,8 +87,9 @@ void Controller::run(int args_count, char *args[])
         }
     }
 
-    word_counter.generate_word_count_table("pass pass,pass pass#HeLLO.      there!! This's a  test' test ' of-this - thing test. -I \\n keep.testing things,so i'can pass keep.",
-            words_and_count_to_add, words_and_count_to_remove, words_to_completely_remove, num_columns, column_width, sort_alphabetically);
+    cout << word_counter.generate_word_count_table("pass pass,pass pass#HeLLO.      there!! This's a  test' test ' of-this - thing test. -I \\n keep.testing things,so i'can pass keep.",
+            words_and_count_to_add, words_and_count_to_remove, words_to_completely_remove, num_columns, column_width, sort_alphabetically) << endl;
+            //TODO move cout out of controller
 }
 
 }

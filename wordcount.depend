@@ -11,15 +11,22 @@
 	<map>
 	<vector>
 
-1583628016 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583635504 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
+	"Utilities.h"
 	"WordCounter.h"
 	<iostream>
 
-1583634081 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
+1583634624 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
 	"WordCounter.h"
 	<iostream>
 	<regex>
 	<sstream>
+	<string>
+
+1583635718 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/Utilities.cpp
+	"Utilities.h"
+
+1583635421 /home/jchitta2/Documents/code/assignment2/wordcount/model/Utilities.h
 	<string>
 
