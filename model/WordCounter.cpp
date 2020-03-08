@@ -42,7 +42,8 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         int num_columns, int column_width, bool sort_alphabetically)
 {
     char before_curr, after_curr;
-    for (int i = 0; i < input.size(); ++i) {
+    for (int i = 0; i < input.size(); ++i)
+    {
         if (i > 0)
         {
             before_curr = input[i - 1];
@@ -60,7 +61,6 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
     regex non_letters ("[^A-Za-z'\\- ]");
 
     stringstream cleaned_input;
-    //map<string, int> word_counts;
     vector<string> words;
     regex_replace(ostream_iterator<char>(cleaned_input), input.begin(), input.end(), non_letters, " ");
 
@@ -72,7 +72,6 @@ string WordCounter::generate_word_count_table(string input, map<string, int> &wo
         {
             transform(word.begin(), word.end(), word.begin(), ::tolower);
             words.push_back(word);
-            //word_counts[word]++;
         }
     }
     if (sort_alphabetically)

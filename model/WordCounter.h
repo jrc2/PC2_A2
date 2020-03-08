@@ -15,8 +15,9 @@ public:
     WordCounter();
     virtual ~WordCounter();
     string generate_word_count_table(string input, map<string, int> &words_and_count_to_add,
-            map<string, int> &words_and_count_to_remove, vector<string> &words_to_completely_remove,
-            int num_columns, int column_width, bool sort_alphabetically);
+                                     map<string, int> &words_and_count_to_remove,
+                                     vector<string> &words_to_completely_remove,
+                                     int num_columns, int column_width, bool sort_alphabetically);
 
 protected:
 
