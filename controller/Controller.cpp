@@ -1,9 +1,9 @@
 #include "Controller.h"
-#include "Utilities.h"
 #include "WordCounter.h"
-using namespace model;
 
 #include <iostream>
+
+using namespace model;
 using namespace std;
 
 namespace controller
@@ -22,7 +22,6 @@ Controller::~Controller()
 void Controller::run(int args_count, char *args[])
 {
     WordCounter word_counter;
-    Utilities utilities;
     const string help = "--help";
     string infile = "";
     string outfile = "";
@@ -42,7 +41,7 @@ void Controller::run(int args_count, char *args[])
         string arg = args[i];
         if (arg.compare(help) == 0)
         {
-            cout << utilities.get_help_message() << endl; //TODO check if cout help message here is ok
+            cout << this->console_output.get_help_message() << endl; //TODO check if cout help message here is ok
             return;
         }
         else if (arg.compare("-a") == 0)
@@ -51,7 +50,7 @@ void Controller::run(int args_count, char *args[])
             string num_times = args[++i];
             if (word.compare(help) == 0 || num_times.compare(help) == 0)
             {
-                cout << utilities.get_help_message() << endl;
+                cout << this->console_output.get_help_message() << endl;
                 return;
             }
             cout << "adding " << word << " " << num_times << " times" << endl;
@@ -61,7 +60,7 @@ void Controller::run(int args_count, char *args[])
             string num_columns = args[++i];
             if (num_columns.compare(help) == 0)
             {
-                cout << utilities.get_help_message() << endl;
+                cout << this->console_output.get_help_message() << endl;
                 return;
             }
             cout << "changing num cols to " << num_columns << endl;
@@ -72,7 +71,7 @@ void Controller::run(int args_count, char *args[])
             string num_times = args[++i];
             if (word.compare(help) == 0 || num_times.compare(help) == 0)
             {
-                cout << utilities.get_help_message() << endl;
+                cout << this->console_output.get_help_message() << endl;
                 return;
             }
             cout << "deleting " << word << " " << num_times << " times" << endl;
@@ -86,7 +85,7 @@ void Controller::run(int args_count, char *args[])
             string word_to_remove = args[++i];
             if (word_to_remove.compare(help) == 0)
             {
-                cout << utilities.get_help_message() << endl;
+                cout << this->console_output.get_help_message() << endl;
                 return;
             }
             cout << "removing completely " << word_to_remove << endl;
@@ -100,7 +99,7 @@ void Controller::run(int args_count, char *args[])
             string column_width = args[++i];
             if (column_width.compare(help) == 0)
             {
-                cout << utilities.get_help_message() << endl;
+                cout << this->console_output.get_help_message() << endl;
                 return;
             }
             cout << "changing col width to " << column_width << endl;
@@ -116,7 +115,7 @@ void Controller::run(int args_count, char *args[])
         }
     }
 
-    string input = utilities.get_string_from_file(infile);
+    string input = this->file_io.get_string_from_file(infile);
     cout << word_counter.generate_word_count_table(input, words_and_count_to_add, words_and_count_to_remove,
             words_to_completely_remove, num_columns, column_width, sort_alphabetically) << endl;
 }

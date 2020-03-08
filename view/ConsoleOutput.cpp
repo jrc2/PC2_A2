@@ -1,25 +1,26 @@
-#include "Utilities.h"
+#include "ConsoleOutput.h"
 
 #include <fstream>
 #include <iterator>
 #include <iostream>
 #include <sstream>
+
 using namespace std;
 
-namespace model
+namespace view
 {
 
-Utilities::Utilities()
+ConsoleOutput::ConsoleOutput()
 {
     //ctor
 }
 
-Utilities::~Utilities()
+ConsoleOutput::~ConsoleOutput()
 {
     //dtor
 }
 
-string Utilities::get_help_message()
+string ConsoleOutput::get_help_message()
 {
     string help_message = "usage: wordcount infile [outfile] [options]\n"
         "by John Chittam\n"
@@ -46,21 +47,4 @@ string Utilities::get_help_message()
     return help_message;
 }
 
-string Utilities::get_string_from_file(const string &file_path)
-{
-    ifstream input_file (file_path);
-    if (input_file)
-    {
-        stringstream input_stream;
-        string line;
-        while (getline(input_file, line))
-        {
-            input_stream << line << endl;
-        }
-        input_file.close();
-        return input_stream.str();
-    }
-
-    return "";
-}
 }

@@ -2,6 +2,11 @@
 #define CONTROLLER_H
 
 #include "WordCounter.h"
+#include "FileIO.h"
+#include "ConsoleOutput.h"
+
+using namespace view;
+using namespace utilities;
 using namespace model;
 
 namespace controller
@@ -18,6 +23,8 @@ public:
 protected:
 
 private:
+    ConsoleOutput console_output;
+    FileIO file_io;
 };
 
 }
