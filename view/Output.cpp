@@ -20,6 +20,9 @@ Output::~Output()
     //dtor
 }
 
+/**
+    Displays the help message via cout.
+*/
 void Output::show_help_message()
 {
     string help_message = "usage: wordcount infile [outfile] [options]\n"
@@ -45,6 +48,32 @@ void Output::show_help_message()
         "                       The default column width is 15.\n";
 
     cout << help_message << endl;
+}
+
+/**
+    Displays the given error message and help message via cout.
+
+    @param message - the error message to display
+*/
+void Output::show_error_message(string &message)
+{
+    if (message.compare("stoi") == 0)
+    {
+        message = "Invalid number given";
+    }
+
+    cout << "ERROR: " << message << endl;
+    this->show_help_message();
+}
+
+/**
+    Displays the given message via cout.
+
+    @param message - the message to display
+*/
+void Output::show_message(string &message)
+{
+    cout << message << endl;
 }
 
 }

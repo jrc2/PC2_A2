@@ -17,6 +17,7 @@ WordCounter::WordCounter()
     this->num_columns = 4;
     this->column_width = 15;
     this->sort_alphabetically = false;
+    this->prompt_for_override = true;
 }
 
 WordCounter::~WordCounter()
@@ -86,7 +87,7 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 return false;
             }
-            cout << "adding " << word << " " << num_times << " times" << endl;
+            this->words_and_count_to_add[word] += stoi(num_times);
         }
         else if (arg.compare("-c") == 0)
         {
@@ -99,7 +100,7 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 return false;
             }
-            cout << "changing num cols to " << num_columns << endl;
+            this->num_columns = stoi(num_columns);
         }
         else if (arg.compare("-d") == 0)
         {
@@ -113,7 +114,7 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 return false;
             }
-            cout << "deleting " << word << " " << num_times << " times" << endl;
+            words_and_count_to_remove[word] -= stoi(num_times);
         }
         else if (arg.compare("-oa") == 0)
         {
@@ -130,11 +131,11 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 return false;
             }
-            cout << "removing completely " << word_to_remove << endl;
+            this->words_to_completely_remove.push_back(word_to_remove);
         }
         else if (arg.compare("-o") == 0)
         {
-            cout << "overriding output file with no prompt" << endl;
+            this->prompt_for_override = false;
         }
         else if (arg.compare("-w") == 0)
         {
@@ -147,7 +148,7 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
             {
                 return false;
             }
-            cout << "changing col width to " << column_width << endl;
+            this->column_width = stoi(column_width);
         }
         else if (infile.compare("") == 0)
         {
@@ -156,7 +157,6 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         else if (outfile.compare("") == 0)
         {
             this->outfile = arg;
-            cout << "OUTFILE: " << arg << endl;
         }
     }
 

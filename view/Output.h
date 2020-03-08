@@ -15,7 +15,8 @@ class Output
         virtual ~Output();
 
         void show_help_message();
-        void show_invalid_input_message();
+        void show_error_message(string &message);
+        void show_message(string &message);
 
     protected:
 

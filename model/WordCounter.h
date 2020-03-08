@@ -33,6 +33,7 @@ private:
     int num_columns;
     int column_width;
     bool sort_alphabetically;
+    bool prompt_for_override;
     string input;
 
     bool process_command_line_args(int args_count, char *args[]);

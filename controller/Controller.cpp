@@ -23,8 +23,8 @@ void Controller::run(int args_count, char *args[])
 {
     if (args_count <= 1)
     {
-        cout << "No infile given" << endl;
-        this->output.show_help_message();
+        string no_infile = "No infile given";
+        this->output.show_error_message(no_infile);
         return;
     }
 
@@ -34,17 +34,12 @@ void Controller::run(int args_count, char *args[])
         string word_count_table = table_outfile_pair.first;
         string outfile = table_outfile_pair.second;
 
-        cout << word_count_table << endl;
-
-        if (word_count_table.compare("") == 0)
-        {
-            this->output.show_help_message();
-        }
+        word_count_table.compare("") == 0 ? this->output.show_help_message() : this->output.show_message(word_count_table);
     }
     catch(invalid_argument &e)
     {
-        cout << e.what() << endl;
-        this->output.show_help_message();
+        string error_message = e.what();
+        this->output.show_error_message(error_message);
     }
 }
 
