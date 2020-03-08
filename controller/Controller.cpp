@@ -22,6 +22,7 @@ Controller::~Controller()
 void Controller::run(int args_count, char *args[])
 {
     WordCounter word_counter;
+    Utilities utilities;
     const string help = "--help";
     string infile = "";
     string outfile = "";
@@ -34,8 +35,10 @@ void Controller::run(int args_count, char *args[])
 
     for (int i = 0; i < args_count; ++i)
     {
-        Utilities utilities;
-        cout << utilities.get_string_from_file("../test.txt");
+        if (i == 0)
+        {
+            continue;
+        }
         string arg = args[i];
         if (arg.compare(help) == 0)
         {
@@ -102,21 +105,20 @@ void Controller::run(int args_count, char *args[])
             }
             cout << "changing col width to " << column_width << endl;
         }
-        else if (infile.compare(""))
+        else if (infile.compare("") == 0)
         {
             infile = arg;
-            cout << "INFILE: " << arg << endl;
         }
-        else if (outfile.compare(""))
+        else if (outfile.compare("") == 0)
         {
             outfile = arg;
             cout << "OUTFILE: " << arg << endl;
         }
     }
 
-    cout << word_counter.generate_word_count_table("pass pass,pass pass#HeLLO.      there!! This's a  four9two 9four four9 test' test ' of-this - thing test. -I \\n keep.testing things,so i'can pass keep.",
-            words_and_count_to_add, words_and_count_to_remove, words_to_completely_remove, num_columns, column_width, sort_alphabetically) << endl;
-            //TODO move cout out of controller
+    string input = utilities.get_string_from_file(infile);
+    cout << word_counter.generate_word_count_table(input, words_and_count_to_add, words_and_count_to_remove,
+            words_to_completely_remove, num_columns, column_width, sort_alphabetically) << endl;
 }
 
 }

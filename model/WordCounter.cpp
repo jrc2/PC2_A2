@@ -130,7 +130,7 @@ string WordCounter::generate_table_grouped_by_occurences(map<string, int> &word_
             time_indicator = "time";
         }
 
-        output << endl << "Words occuring " << num_occurences << " " << time_indicator << endl;
+        output << endl << "Words occuring " << num_occurences << " " << time_indicator << ":" << endl;
 
         vector<string> words = word.second;
         output << this->output_formatter(words, num_columns, column_width) << endl;
