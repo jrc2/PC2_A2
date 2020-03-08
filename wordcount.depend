@@ -8,18 +8,18 @@
 	"FileIO.h"
 	"Output.h"
 
-1583700765 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
+1583702302 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
 	<string>
 	<map>
 	<vector>
 	"FileIO.h"
 
-1583699655 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583702321 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
 	"WordCounter.h"
 	<iostream>
 
-1583700383 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
+1583702795 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
 	"WordCounter.h"
 	<iostream>
 	<regex>
@@ -46,12 +46,13 @@
 1583691928 /home/jchitta2/Documents/code/assignment2/wordcount/view/ConsoleOutput.h
 	<fstream>
 
-1583691255 source:/home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.cpp
+1583702888 source:/home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.cpp
 	"FileIO.h"
 	<fstream>
 	<sstream>
+	<iostream>
 
-1583691252 /home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.h
+1583702809 /home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.h
 	<fstream>
 
 1583699340 /home/jchitta2/Documents/code/assignment2/wordcount/view/Output.h

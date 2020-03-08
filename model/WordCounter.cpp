@@ -17,7 +17,7 @@ WordCounter::WordCounter()
     this->num_columns = 4;
     this->column_width = 15;
     this->sort_alphabetically = false;
-    this->prompt_for_override = true;
+    this->ok_to_override = false;
 }
 
 WordCounter::~WordCounter()
@@ -34,8 +34,6 @@ WordCounter::~WordCounter()
 
     @return an empty string if help message should be shown, otherwise a string showing the occurences of words,
         either by count or starting letter
-
-    @throws invalid_argument if argument passed in is not valid
 */
 string WordCounter::generate_word_count_table(int args_count, char *args[])
 {
@@ -51,7 +49,6 @@ string WordCounter::generate_word_count_table(int args_count, char *args[])
     stringstream cleaned_input = this->clean_input(input);
     map<string, int> word_counts = this->generate_word_count_map(cleaned_input);
 
-
     if (sort_alphabetically)
     {
         output = this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
@@ -59,6 +56,11 @@ string WordCounter::generate_word_count_table(int args_count, char *args[])
     else
     {
         output = this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
+    }
+
+    if (this->outfile.compare("") != 0)
+    {
+        this->file_io.write_string_to_file(output, this->outfile, ok_to_override);
     }
 
     return output;
@@ -134,7 +136,7 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         }
         else if (arg.compare("-o") == 0)
         {
-            this->prompt_for_override = false;
+            this->ok_to_override = true;
         }
         else if (arg.compare("-w") == 0)
         {
