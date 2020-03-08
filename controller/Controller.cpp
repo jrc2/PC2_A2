@@ -41,7 +41,7 @@ void Controller::run(int args_count, char *args[])
         string arg = args[i];
         if (arg.compare(help) == 0)
         {
-            cout << this->console_output.get_help_message() << endl; //TODO check if cout help message here is ok
+            this->console_output.show_help_message();
             return;
         }
         else if (arg.compare("-a") == 0)
@@ -50,7 +50,7 @@ void Controller::run(int args_count, char *args[])
             string num_times = args[++i];
             if (word.compare(help) == 0 || num_times.compare(help) == 0)
             {
-                cout << this->console_output.get_help_message() << endl;
+                this->console_output.show_help_message();
                 return;
             }
             cout << "adding " << word << " " << num_times << " times" << endl;
@@ -60,7 +60,7 @@ void Controller::run(int args_count, char *args[])
             string num_columns = args[++i];
             if (num_columns.compare(help) == 0)
             {
-                cout << this->console_output.get_help_message() << endl;
+                this->console_output.show_help_message();
                 return;
             }
             cout << "changing num cols to " << num_columns << endl;
@@ -71,7 +71,7 @@ void Controller::run(int args_count, char *args[])
             string num_times = args[++i];
             if (word.compare(help) == 0 || num_times.compare(help) == 0)
             {
-                cout << this->console_output.get_help_message() << endl;
+                this->console_output.show_help_message();
                 return;
             }
             cout << "deleting " << word << " " << num_times << " times" << endl;
@@ -85,7 +85,7 @@ void Controller::run(int args_count, char *args[])
             string word_to_remove = args[++i];
             if (word_to_remove.compare(help) == 0)
             {
-                cout << this->console_output.get_help_message() << endl;
+                this->console_output.show_help_message();
                 return;
             }
             cout << "removing completely " << word_to_remove << endl;
@@ -99,7 +99,7 @@ void Controller::run(int args_count, char *args[])
             string column_width = args[++i];
             if (column_width.compare(help) == 0)
             {
-                cout << this->console_output.get_help_message() << endl;
+                this->console_output.show_help_message();
                 return;
             }
             cout << "changing col width to " << column_width << endl;

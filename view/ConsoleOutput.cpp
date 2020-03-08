@@ -20,7 +20,7 @@ ConsoleOutput::~ConsoleOutput()
     //dtor
 }
 
-string ConsoleOutput::get_help_message()
+void ConsoleOutput::show_help_message()
 {
     string help_message = "usage: wordcount infile [outfile] [options]\n"
         "by John Chittam\n"
@@ -44,7 +44,7 @@ string ConsoleOutput::get_help_message()
         "   -w <number>         Changes the column width for the output columns.\n"
         "                       The default column width is 15.\n";
 
-    return help_message;
+    cout << help_message << endl;
 }
 
 }

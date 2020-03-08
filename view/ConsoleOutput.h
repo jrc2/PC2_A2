@@ -14,7 +14,7 @@ class ConsoleOutput
         ConsoleOutput();
         virtual ~ConsoleOutput();
 
-        string get_help_message();
+        void show_help_message();
 
     protected:
 
