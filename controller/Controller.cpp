@@ -1,7 +1,4 @@
 #include "Controller.h"
-#include "WordCounter.h"
-
-#include <iostream>
 
 using namespace std;
 using namespace model;
@@ -9,16 +6,18 @@ using namespace model;
 namespace controller
 {
 
-Controller::Controller()
-{
-    //ctor
-}
+/**
+    The program controller.
 
-Controller::~Controller()
-{
-    //dtor
-}
+    @author John Chittam
+*/
 
+/**
+    Runs the program controller
+
+    @param args_count - the number of command line arguments, including the call to the application
+    @param args - the array of all args, including the call to the application
+*/
 void Controller::run(int args_count, char *args[])
 {
     if (args_count <= 1)

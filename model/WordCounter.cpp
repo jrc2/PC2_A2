@@ -1,6 +1,6 @@
 #include "WordCounter.h"
+#include "CommandLineParser.h"
 
-#include <iostream>
 #include <regex>
 #include <sstream>
 #include <string>
@@ -10,6 +10,11 @@ using namespace std;
 namespace model
 {
 
+/**
+    WordCounter constructor
+
+    @author John Chittam
+*/
 WordCounter::WordCounter()
 {
     this->infile = "";
@@ -18,11 +23,7 @@ WordCounter::WordCounter()
     this->column_width = 15;
     this->sort_alphabetically = false;
     this->ok_to_override = false;
-}
-
-WordCounter::~WordCounter()
-{
-    //dtor
+    this->show_help = false;
 }
 
 /**
@@ -30,33 +31,32 @@ WordCounter::~WordCounter()
     letters, `-`s or `'`s will be converted to spaces. `-`s and `'`s will be converted to spaces if not
     surrounded by letters.
 
-    @param TODO
+    @param args_count - the number of arguments, including the initial call
+    @param args - the arguments, including the initial call
 
     @return an empty string if help message should be shown, otherwise a string showing the occurences of words,
         either by count or starting letter
+
+    @throws invalid_argument if a command line argument is not valid.
 */
 string WordCounter::generate_word_count_table(int args_count, char *args[])
 {
     string output;
-    bool args_result_help = this->process_command_line_args(args_count, args);
-    if (!args_result_help)
+
+    if (!this->process_command_line_args(args_count, args))
     {
         return "";
     }
 
     this->get_input();
 
-    stringstream cleaned_input = this->clean_input(input);
+    stringstream cleaned_input = this->clean_input();
     map<string, int> word_counts = this->generate_word_count_map(cleaned_input);
 
-    if (sort_alphabetically)
-    {
-        output = this->generate_table_grouped_alphabetically(word_counts, num_columns, column_width);
-    }
-    else
-    {
-        output = this->generate_table_grouped_by_occurences(word_counts, num_columns, column_width);
-    }
+    this->add_all(word_counts, this->words_and_count_to_add);
+    this->remove_all(word_counts, this->words_and_count_to_remove);
+    this->remove_all_occurences(word_counts, this->words_to_completely_remove);
+    this->sort_output(word_counts, output);
 
     if (this->outfile.compare("") != 0)
     {
@@ -66,9 +66,14 @@ string WordCounter::generate_word_count_table(int args_count, char *args[])
     return output;
 }
 
+/**
+    Helper method to process command line arguments.
+
+    @return false if unable to process or --help is found, true otherwise.
+*/
 bool WordCounter::process_command_line_args(int args_count, char *args[])
 {
-    int one_additional_arg = 2;
+    CommandLineParser parser;
     for (int i = 0; i < args_count; ++i)
     {
         string arg = args[i];
@@ -76,54 +81,30 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         {
             continue;
         }
-        else if (arg.compare(help) == 0)
+        else if (arg.compare(help_arg) == 0)
         {
             return false;
         }
         else if (arg.compare("-a") == 0)
         {
-            string word = args[++i];
-            string num_times = args[++i];
-
-            if (word.compare(help) == 0 || num_times.compare(help) == 0)
+            if (!parser.parse_add(args_count, args, i, this->words_and_count_to_add))
             {
                 return false;
             }
-
-            this->words_and_count_to_add[word] += stoi(num_times);
         }
         else if (arg.compare("-c") == 0)
         {
-            if (args_count < i + one_additional_arg)
-            {
-                throw invalid_argument("No number given after -c");
-            }
-
-            string num_columns = args[++i];
-
-            if (num_columns.compare(help) == 0)
+            if (!parser.parse_num_columns(args_count, args, i, this->num_columns))
             {
                 return false;
             }
-
-            this->num_columns = stoi(num_columns) > 0 ? stoi(num_columns) : 1;
         }
         else if (arg.compare("-d") == 0)
         {
-            if (args_count < i + one_additional_arg + 1)
-            {
-                throw invalid_argument("A word and number of times are required after -d");
-            }
-
-            string word = args[++i];
-            string num_times = args[++i];
-
-            if (word.compare(help) == 0 || num_times.compare(help) == 0)
+            if (!parser.parse_delete_num_of_word(args_count, args, i, this->words_and_count_to_remove))
             {
                 return false;
             }
-
-            words_and_count_to_remove[word] -= stoi(num_times);
         }
         else if (arg.compare("-oa") == 0)
         {
@@ -131,19 +112,10 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         }
         else if (arg.compare("-r") == 0)
         {
-            if (args_count < i + one_additional_arg)
-            {
-                throw invalid_argument("No word given after -r");
-            }
-
-            string word_to_remove = args[++i];
-
-            if (word_to_remove.compare(help) == 0)
+            if (!parser.parse_remove_all_of_word(args_count, args, i, this->words_to_completely_remove))
             {
                 return false;
             }
-
-            this->words_to_completely_remove.push_back(word_to_remove);
         }
         else if (arg.compare("-o") == 0)
         {
@@ -151,19 +123,10 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
         }
         else if (arg.compare("-w") == 0)
         {
-            if (args_count < i + one_additional_arg)
-            {
-                throw invalid_argument("No number given after -w");
-            }
-
-            string column_width = args[++i];
-
-            if (column_width.compare(help) == 0)
+            if (!parser.parse_column_width_arg(args_count, args, i, this->column_width))
             {
                 return false;
             }
-
-            this->column_width = stoi(column_width);
         }
         else if (infile.compare("") == 0)
         {
@@ -178,6 +141,41 @@ bool WordCounter::process_command_line_args(int args_count, char *args[])
     return true;
 }
 
+void WordCounter::add_all(map<string, int> &map_to_add_to, const map<string, int> &map_to_add_from)
+{
+    for (const auto &word_count_pair : map_to_add_from)
+    {
+        string word = word_count_pair.first;
+        int count = word_count_pair.second;
+        map_to_add_to[word] += count;
+    }
+}
+
+void WordCounter::remove_all(map<string, int> &map_to_remove_from, const map<string, int> &map_to_remove_based_on)
+{
+    for (const auto &word_count_pair : map_to_remove_based_on)
+    {
+        string word = word_count_pair.first;
+        int count = word_count_pair.second;
+        if (map_to_remove_from[word] - count > 0)
+        {
+            map_to_remove_from[word] -= count;
+        }
+        else if (map_to_remove_from[word] - count == 0)
+        {
+            map_to_remove_from.erase(word);
+        }
+    }
+}
+
+void WordCounter::remove_all_occurences(map<string, int> &map_to_remove_from, const vector<string> &words_to_remove)
+{
+    for (const auto &word : words_to_remove)
+    {
+        map_to_remove_from.erase(word);
+    }
+}
+
 void WordCounter::get_input()
 {
     this->input = this->file_io.get_string_from_file(infile);
@@ -188,25 +186,25 @@ void WordCounter::get_input()
     }
 }
 
-stringstream WordCounter::clean_input(string &input)
+stringstream WordCounter::clean_input()
 {
     char before_curr, after_curr;
 
-    for (unsigned i = 0; i < input.size(); ++i)
+    for (unsigned i = 0; i < this->input.size(); ++i)
     {
         if (i > 0)
         {
-            before_curr = input[i - 1];
+            before_curr = this->input[i - 1];
         }
 
-        if (i < input.size())
+        if (i < this->input.size())
         {
-            after_curr = input[i + 1];
+            after_curr = this->input[i + 1];
         }
 
-        if ((before_curr == ' ' || after_curr == ' ') && (input[i] == '\'' || input[i] == '-'))
+        if ((before_curr == ' ' || after_curr == ' ') && (this->input[i] == '\'' || this->input[i] == '-'))
         {
-            input[i] = ' ';
+            this->input[i] = ' ';
         }
     }
 
@@ -315,6 +313,18 @@ string WordCounter::output_formatter(vector<string> &words_to_format, int num_co
     }
 
     return formatted_output.str();
+}
+
+void WordCounter::sort_output(map<string, int> word_counts, string &output)
+{
+    if (this->sort_alphabetically)
+    {
+        output = this->generate_table_grouped_alphabetically(word_counts, this->num_columns, this->column_width);
+    }
+    else
+    {
+        output = this->generate_table_grouped_by_occurences(word_counts, this->num_columns, this->column_width);
+    }
 }
 
 }

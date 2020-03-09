@@ -3,25 +3,22 @@
 	<iostream>
 	"Controller.h"
 
-1583696427 /home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.h
+1583717819 /home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.h
 	"WordCounter.h"
-	"FileIO.h"
 	"Output.h"
 
-1583702302 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
+1583717538 /home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.h
 	<string>
 	<map>
 	<vector>
 	"FileIO.h"
 
-1583702321 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
+1583717841 source:/home/jchitta2/Documents/code/assignment2/wordcount/controller/Controller.cpp
 	"Controller.h"
-	"WordCounter.h"
-	<iostream>
 
-1583702795 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
+1583718618 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/WordCounter.cpp
 	"WordCounter.h"
-	<iostream>
+	"CommandLineParser.h"
 	<regex>
 	<sstream>
 	<string>
@@ -46,22 +43,26 @@
 1583691928 /home/jchitta2/Documents/code/assignment2/wordcount/view/ConsoleOutput.h
 	<fstream>
 
-1583704889 source:/home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.cpp
+1583718599 source:/home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.cpp
 	"FileIO.h"
 	<fstream>
 	<sstream>
 	<iostream>
 
-1583702809 /home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.h
+1583718408 /home/jchitta2/Documents/code/assignment2/wordcount/utilities/FileIO.h
 	<fstream>
 
-1583699340 /home/jchitta2/Documents/code/assignment2/wordcount/view/Output.h
+1583718741 /home/jchitta2/Documents/code/assignment2/wordcount/view/Output.h
 	<fstream>
 
-1583700464 source:/home/jchitta2/Documents/code/assignment2/wordcount/view/Output.cpp
+1583718730 source:/home/jchitta2/Documents/code/assignment2/wordcount/view/Output.cpp
 	"Output.h"
-	<fstream>
-	<iterator>
 	<iostream>
-	<sstream>
+
+1583718279 source:/home/jchitta2/Documents/code/assignment2/wordcount/model/CommandLineParser.cpp
+	"CommandLineParser.h"
+
+1583717905 /home/jchitta2/Documents/code/assignment2/wordcount/model/CommandLineParser.h
+	<map>
+	<vector>
 

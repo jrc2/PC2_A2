@@ -1,24 +1,17 @@
 #include "Output.h"
 
-#include <fstream>
-#include <iterator>
 #include <iostream>
-#include <sstream>
 
 using namespace std;
 
 namespace view
 {
 
-Output::Output()
-{
-    //ctor
-}
+/**
+    Handles output to the command prompt.
 
-Output::~Output()
-{
-    //dtor
-}
+    @author John Chittam
+*/
 
 /**
     Displays the help message via cout.
@@ -71,7 +64,7 @@ void Output::show_error_message(string &message)
 
     @param message - the message to display
 */
-void Output::show_message(string &message)
+void Output::show_message(const string &message)
 {
     cout << message << endl;
 }

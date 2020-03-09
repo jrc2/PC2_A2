@@ -9,18 +9,18 @@ using namespace std;
 namespace utilities
 {
 
-FileIO::FileIO()
-{
-    //ctor
-}
+/**
+    FileIO helper methods.
 
-FileIO::~FileIO()
-{
-    //dtor
-}
+    @author John Chittam
+*/
 
 /**
-    TODO
+    Generates a string based on the given text file's content.
+
+    @param file_path - the absolute or relative path of the text file.
+
+    @return the file's content as a string
 */
 string FileIO::get_string_from_file(const string &file_path)
 {
@@ -41,9 +41,14 @@ string FileIO::get_string_from_file(const string &file_path)
 }
 
 /**
-    TODO
+    Writes the given content to a file at the given path. If the file already exists, it will be
+    overwritten unless ok_to_override is false and the user does not confirm overwriting.
+
+    @param contents - the string to write to the file
+    @param file_path - the absolute or relative path of the text file.
+    @param ok_to_override - true if the file can be overwritten without confirmation, false if not
 */
-void FileIO::write_string_to_file(const string contents, const string file_path, bool ok_to_override)
+void FileIO::write_string_to_file(const string &contents, const string &file_path, bool ok_to_override)
 {
     if (this->check_if_file_exists(file_path) && !ok_to_override)
     {
