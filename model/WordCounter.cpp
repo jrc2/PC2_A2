@@ -228,7 +228,8 @@ stringstream WordCounter::clean_input(string &input)
             after_curr = input[i + 1];
         }
 
-        if ((before_curr == ' ' || after_curr == ' ') && (input[i] == '\'' || input[i] == '-'))
+        if ((before_curr == ' ' || after_curr == ' ' || i == 0 || i == input.size() - 1) &&
+                (input[i] == '\'' || input[i] == '-'))
         {
             input[i] = ' ';
         }
