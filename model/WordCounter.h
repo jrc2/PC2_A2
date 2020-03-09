@@ -32,14 +32,14 @@ private:
     bool sort_alphabetically;
     bool ok_to_override;
     bool show_help;
-    string input;
 
     bool process_command_line_args(int args_count, char *args[]);
     void add_all(map<string, int> &map_to_add_to, const map<string, int> &map_to_add_from);
     void remove_all(map<string, int> &map_to_remove_from, const map<string, int> &map_to_remove_based_on);
     void remove_all_occurences(map<string, int> &map_to_remove_from, const vector<string> &words_to_remove);
-    void get_input();
-    stringstream clean_input();
+    string get_input();
+    stringstream clean_input(string &input);
+    void add_stringstream_to_map(stringstream &input, map<string, int> &word_counts, int added_word_count);
     map<string, int> generate_word_count_map(stringstream &cleaned_input);
     string generate_table_grouped_alphabetically(map<string, int> &word_counts, int num_columns, int column_width);
     string generate_table_grouped_by_occurences(map<string, int> &word_counts, int num_columns, int column_width);

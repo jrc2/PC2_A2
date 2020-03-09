@@ -48,9 +48,9 @@ string WordCounter::generate_word_count_table(int args_count, char *args[])
         return "";
     }
 
-    this->get_input();
+    string input = this->get_input();
 
-    stringstream cleaned_input = this->clean_input();
+    stringstream cleaned_input = this->clean_input(input);
     map<string, int> word_counts = this->generate_word_count_map(cleaned_input);
 
     this->add_all(word_counts, this->words_and_count_to_add);
@@ -145,66 +145,92 @@ void WordCounter::add_all(map<string, int> &map_to_add_to, const map<string, int
 {
     for (const auto &word_count_pair : map_to_add_from)
     {
-        string word = word_count_pair.first;
+        string input = word_count_pair.first;
+        stringstream cleaned_input = this->clean_input(input);
         int count = word_count_pair.second;
-        map_to_add_to[word] += count;
+        this->add_stringstream_to_map(cleaned_input, map_to_add_to, count);
     }
+
 }
 
 void WordCounter::remove_all(map<string, int> &map_to_remove_from, const map<string, int> &map_to_remove_based_on)
 {
     for (const auto &word_count_pair : map_to_remove_based_on)
     {
-        string word = word_count_pair.first;
+        string input = word_count_pair.first;
+        stringstream cleaned_input = this->clean_input(input);
         int count = word_count_pair.second;
-        if (map_to_remove_from[word] - count > 0)
+        map<string, int> cleaned_words_to_remove;
+        this->add_stringstream_to_map(cleaned_input, cleaned_words_to_remove, -1 * count);
+
+        for (const auto &word_count_pair : cleaned_words_to_remove)
         {
-            map_to_remove_from[word] -= count;
-        }
-        else if (map_to_remove_from[word] - count == 0)
-        {
-            map_to_remove_from.erase(word);
+            string word = word_count_pair.first;
+
+            if (map_to_remove_from[word] - count > 0)
+            {
+                map_to_remove_from[word] -= count;
+            }
+            else if (map_to_remove_from[word] - count <= 0)
+            {
+                map_to_remove_from.erase(word);
+            }
         }
     }
 }
 
 void WordCounter::remove_all_occurences(map<string, int> &map_to_remove_from, const vector<string> &words_to_remove)
 {
+    string input = "";
+
     for (const auto &word : words_to_remove)
     {
+        input += word + " ";
+    }
+
+    stringstream cleaned_input = this->clean_input(input);
+
+    map<string, int> cleaned_words_to_remove;
+    this->add_stringstream_to_map(cleaned_input, cleaned_words_to_remove, 0);
+
+    for (const auto &word_count_pair : cleaned_words_to_remove)
+    {
+        string word = word_count_pair.first;
         map_to_remove_from.erase(word);
     }
 }
 
-void WordCounter::get_input()
+string WordCounter::get_input()
 {
-    this->input = this->file_io.get_string_from_file(infile);
+    string input = this->file_io.get_string_from_file(infile);
 
-    if (this->input.compare("") == 0)
+    if (input.compare("") == 0)
     {
         throw invalid_argument("Invalid input file");
     }
+
+    return input;
 }
 
-stringstream WordCounter::clean_input()
+stringstream WordCounter::clean_input(string &input)
 {
     char before_curr, after_curr;
 
-    for (unsigned i = 0; i < this->input.size(); ++i)
+    for (unsigned i = 0; i < input.size(); ++i)
     {
         if (i > 0)
         {
-            before_curr = this->input[i - 1];
+            before_curr = input[i - 1];
         }
 
-        if (i < this->input.size())
+        if (i < input.size())
         {
-            after_curr = this->input[i + 1];
+            after_curr = input[i + 1];
         }
 
-        if ((before_curr == ' ' || after_curr == ' ') && (this->input[i] == '\'' || this->input[i] == '-'))
+        if ((before_curr == ' ' || after_curr == ' ') && (input[i] == '\'' || input[i] == '-'))
         {
-            this->input[i] = ' ';
+            input[i] = ' ';
         }
     }
 
@@ -219,19 +245,24 @@ map<string, int> WordCounter::generate_word_count_map(stringstream &cleaned_inpu
 {
     map<string, int> word_counts;
 
-    while (cleaned_input)
+    this->add_stringstream_to_map(cleaned_input, word_counts, 1);
+
+    return word_counts;
+}
+
+void WordCounter::add_stringstream_to_map(stringstream &input, map<string, int> &word_counts, int added_word_count)
+{
+    while (input)
     {
         string word;
-        cleaned_input >> word;
+        input >> word;
 
         if (word.compare("") != 0)
         {
             transform(word.begin(), word.end(), word.begin(), ::tolower);
-            word_counts[word]++;
+            word_counts[word] += added_word_count;
         }
     }
-
-    return word_counts;
 }
 
 string WordCounter::generate_table_grouped_alphabetically(map<string, int> &word_counts, int num_columns, int column_width)
